@@ -14,6 +14,20 @@ The project explores a pipeline combining **domain-informed weak labels, XGBoost
 - Backend/frontend architecture used around the ML work
 - Explicit treatment of methodological limitations
 
+## Product overview
+
+COBRA was designed as a broader decision-support platform rather than an isolated ML notebook. The interface prototypes cover several stages of the obsolescence-management workflow:
+
+**Obsolescence dashboard** — consolidated component status, compliance and inventory indicators, risk levels and operational monitoring in one system view.
+
+**RETEX / recommendation module** — retrieval of similar historical cases, similarity scoring and presentation of previous or alternative mitigation actions. This connects NLP/similarity work with an end-user decision workflow.
+
+**PCN / PDN notifications** — centralized tracking of supplier product-change and product-discontinuation notices, with supplier, category, effective date and criticality information.
+
+**Platform experience** — a unified interface designed to connect component data, risk assessment, notifications and recommendations instead of exposing the underlying models directly to users.
+
+[View the COBRA interface design in Figma](https://www.figma.com/design/fyzli7EbAH6VnqyLgq6yWF/COBRA-project--Copy-?node-id=0-1&p=f)
+
 ## ML pipeline
 
 ```text
@@ -32,7 +46,7 @@ Baseline models + XGBoost
 Explainability / SHAP analysis
 ```
 
-The original prototype also included PCN/PDN processing, component and nomenclature management, a FastAPI backend, and a React interface. This public portfolio repository intentionally contains a **selected, cleaned excerpt** rather than the complete internal application.
+The original prototype also included PCN/PDN processing, component and nomenclature management, a FastAPI backend, and a React interface. This portfolio repository intentionally contains a **selected, cleaned excerpt** rather than the complete internal application.
 
 ## Methodological note
 
