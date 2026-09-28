@@ -1,135 +1,80 @@
 # COBRA — Explainable ML for Industrial Obsolescence Risk
 
-An end-to-end prototype for industrial electronic-component obsolescence management, combining structured data ingestion, PCN/PDN processing, risk assessment, weak supervision, machine learning and explainability.
+Portfolio excerpt from an applied AI research project on electronic-component obsolescence management.
 
-## Why this project
+The project explores a pipeline combining **domain-informed weak labels, XGBoost and SHAP** to support interpretable obsolescence-risk assessment under incomplete industrial data.
 
-Electronic-component obsolescence creates supply-chain and engineering risk: parts may become difficult to source, be discontinued, or require redesign. COBRA explores how data-driven methods can support engineers by consolidating heterogeneous information and producing interpretable risk assessments.
+## What this repository highlights
 
-This repository is a portfolio-oriented prototype extracted from work conducted in the context of the COBRA / EOS research project. The included example data are synthetic and intended for demonstration.
+- ML problem formulation for industrial obsolescence risk
+- Weak-supervision / weak-label strategy
+- Comparison with simple ML baselines
+- XGBoost classification
+- Explainability-oriented model design
+- Backend/frontend architecture used around the ML work
+- Explicit treatment of methodological limitations
 
-## What it demonstrates
-
-- End-to-end ML workflow, from data preparation to model interpretation
-- Weak-label generation for an industrial risk problem
-- XGBoost-based classification and SHAP explainability
-- FastAPI backend with SQLAlchemy and Pydantic
-- React/Vite frontend
-- PCN/PDN ingestion and parsing
-- Component criticality and obsolescence-risk services
-- Automated tests and synthetic demonstration data
-
-## Architecture
+## ML pipeline
 
 ```text
-Synthetic / imported component data
-            |
-            v
-     Data ingestion layer
-            |
-            +--> PCN / PDN processing
-            |
-            +--> Criticality & risk rules
-            |
-            v
-       Weak labels
-            |
-            v
-        XGBoost model
-            |
-            v
-      SHAP explanations
-            |
-            v
- FastAPI backend <--> React frontend
+Industrial component data
+        |
+        v
+Domain-informed risk rules
+        |
+        v
+     Weak labels
+        |
+        v
+Baseline models + XGBoost
+        |
+        v
+Explainability / SHAP analysis
 ```
+
+The original prototype also included PCN/PDN processing, component and nomenclature management, a FastAPI backend, and a React interface. This public portfolio repository intentionally contains a **selected, cleaned excerpt** rather than the complete internal application.
+
+## Methodological note
+
+The labels used for training are weak labels derived from domain rules that use closely related input variables. Therefore, high predictive accuracy against these labels should **not** be interpreted as independent validation of the labeling strategy.
+
+In this setting, performance primarily shows how well the model learns the weak-label mapping. Independent expert labels or observed real-world outcomes would be needed to validate predictive performance externally.
+
+Keeping this limitation explicit was an important part of the research approach.
 
 ## Repository structure
 
 ```text
 backend/
   app/
-    main.py                 # FastAPI application
-    database.py             # Database configuration
-    models.py / schemas.py  # Data model and validation
-    smartpcn.py             # PCN/PDN processing
-    criticite.py            # Criticality logic
-    risque.py               # Risk logic
-    modele_ml.py            # ML pipeline and explainability
-    services*.py            # Application services
-  samples/                  # Synthetic/example PCN and XML files
-  test_*.py                 # Tests
+    modele_ml.py        # selected ML pipeline excerpt
+  requirements.txt
 
 frontend/
+  index.html
+  package.json
   src/
-    App.jsx
-    api.js
-    apiRisque.js
-    styles.css
-
-DOCUMENTATION.md
-DOCUMENTATION-RISQUE.md
+    main.jsx            # frontend entry point excerpt
 ```
-
-## Machine-learning approach
-
-The prototype uses weak supervision to derive training labels from domain-informed risk signals, then trains an XGBoost classifier to learn the resulting risk structure. SHAP is used to expose feature contributions and make individual predictions easier to inspect.
-
-### An important methodological limitation
-
-High predictive performance against weak labels does **not** independently validate the labeling strategy when those labels were themselves derived from the same or closely related input variables. In that setting, the model may primarily reproduce the labeling function.
-
-For this reason, model metrics in this prototype should be interpreted as evidence that the model can learn the weak-label mapping — not as proof of real-world predictive validity. A production evaluation would require independent outcomes or expert-validated labels.
-
-This distinction was important in the research work behind the prototype and is intentionally kept visible here.
 
 ## Tech stack
 
-**Machine learning:** Python, XGBoost, SHAP, scikit-learn, pandas, NumPy  
-**Backend:** FastAPI, SQLAlchemy, Pydantic  
-**Frontend:** React, Vite  
-**Engineering:** Git, API-based architecture, automated tests
-
-## Running locally
-
-### Backend
-
-```bash
-cd backend
-python -m venv .venv
-# Windows
-.venv\Scripts\activate
-# macOS / Linux
-source .venv/bin/activate
-
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
-
-### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Exact configuration may need to be adapted to your local database/environment.
+Python · pandas · NumPy · scikit-learn · XGBoost · SHAP · FastAPI · SQLAlchemy · Pydantic · React · Vite
 
 ## Research context
 
-The prototype was developed in the context of research on AI-assisted obsolescence management. Related work includes:
+Related publications:
 
-- A. Mrabah, E. Saad, M. Zolghadri, C. Edouard, **“Explainable AI for Obsolescence Using Weak Labels,”** RAMS 2026.
-- E. Saad, A. Mrabah, M. Besbes, M. Zolghadri, et al., **“Zero-Shot Learning for Obsolescence Risk Forecasting,”** IFAC-PapersOnLine, 2025.
-- M. Besbes, P. Leclaire, A. Souifi, A. Mrabah, M. Zolghadri, **“A New Tool for Obsolescence Management,”** CPI 2024.
+- A. Mrabah, E. Saad, M. Zolghadri, C. Edouard (2026), **Explainable AI for Obsolescence Using Weak Labels**, RAMS.
+- E. Saad, A. Mrabah, M. Besbes, M. Zolghadri, et al. (2025), **Zero-Shot Learning for Obsolescence Risk Forecasting**, IFAC-PapersOnLine.
+- M. Besbes, P. Leclaire, A. Souifi, A. Mrabah, M. Zolghadri (2024), **A New Tool for Obsolescence Management**, CPI 2024.
 
 ## Author
 
 **Aya Mrabah** — AI Engineer / Data Scientist
 
-Research interests include applied machine learning, explainable AI, NLP and robust ML systems.
+Interests: applied machine learning, explainable AI, NLP and robust ML systems.
 
-## Notes
+---
 
-This repository is presented as a research and engineering prototype. It is not a commercial release of COBRA and should not be interpreted as a validated production risk model.
+This repository is shared as a portfolio/research excerpt. It is not a commercial release of COBRA and is not presented as a validated production risk model.
